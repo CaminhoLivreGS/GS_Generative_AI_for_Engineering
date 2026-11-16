@@ -154,7 +154,19 @@ A instrução maliciosa não vazou, a prioridade não foi manipulada e o abuso f
 - [`GS_GenAI_CaminhoLivre.ipynb`](GS_GenAI_CaminhoLivre.ipynb): notebook executado, todas as saídas visíveis.
 - [`evidencias/notebook_executado.html`](evidencias/notebook_executado.html): o mesmo notebook em HTML, abre em qualquer navegador.
 - [`evidencias/resultados_execucao.json`](evidencias/resultados_execucao.json): log de cada chamada (modelo, latência, status) e resultados de E1, E2 e E6.
-- Prints: `evidencias/prints/` *(adicionar capturas de tela das células P3, P4, E2 e E4)*.
+- Prints de tela em [`evidencias/prints/`](evidencias/prints/):
+
+| Print | O que comprova |
+|---|---|
+| [`m2_troca_modelo.png`](evidencias/prints/m2_troca_modelo.png) | Troca de modelo, motivos, teste de latência e catálogo consultado ao vivo |
+| [`p2_destino_json.png`](evidencias/prints/p2_destino_json.png) | Prompt 2: V1 (sem otimização) sem JSON utilizável × V2 (com otimização) com JSON validado |
+| [`p3_rota_sem_e_com_otimizacao.png`](evidencias/prints/p3_rota_sem_e_com_otimizacao.png) | Prompt 3: V1 com 384 palavras e desvios não explicados × V2 por perfil, fidelidade 5/5 |
+| [`p4_system_prompt.png`](evidencias/prints/p4_system_prompt.png) | Prompt 4: V1 com 73 palavras e markdown × V2 com 23 palavras, sem promessa de segurança. Início do E1 |
+| [`e2_e3_json_lote_e_erros.png`](evidencias/prints/e2_e3_json_lote_e_erros.png) | E2: lote em JSON com emergência detectada (192). E3: fallback de modelo inválido e timeout tratado |
+| [`e4_prompt_injection.png`](evidencias/prints/e4_prompt_injection.png) | E4: relato malicioso bloqueado, abuso sinalizado e revisão humana obrigatória |
+
+![Prompt 4: antes e depois](evidencias/prints/p4_system_prompt.png)
+![Experimento 4: prompt injection](evidencias/prints/e4_prompt_injection.png)
 
 **Nota sobre o cache:** as respostas da API ficam em `.cache_llm.json` (fora do Git), então reexecutar não gasta a cota gratuita de 50 chamadas/dia. Por isso várias saídas aparecem como `cache`: são as respostas reais obtidas na primeira chamada, com a latência medida naquele momento. Apague o arquivo para forçar chamadas novas.
 
@@ -180,6 +192,7 @@ Para testar sem gastar cota: `LLM_MOCK=1` faz o cliente devolver respostas simul
 - **Base de conhecimento:** descreve o comportamento **planejado** do app (MVP em desenvolvimento). Detalhes de interface podem mudar.
 - **Recuperação por palavras:** não entende sinônimos nem sentido ("previsão do *tempo*" recuperou "quanto *tempo* um relato fica valendo"). A recusa padrão do prompt compensa, mas a evolução é usar embeddings + pgvector.
 - **Modelos gratuitos:** 50 chamadas/dia, 429 frequente, modelos saem do catálogo sem aviso (Qwen e Gemma, neste trabalho). Explicar a rota levou ~20 s. Produção exige modelo pago com SLA ou geração antecipada.
+- **Falso alarme no verificador do P3:** para o perfil `mobilidade_reduzida`, a checagem automática deu fidelidade 4/5 porque a resposta diz *"A rota não é garantida como totalmente segura"*. A frase está correta, mas o verificador do P3 procura a palavra "garantid" sem considerar a negação, ao contrário do verificador do P4. A correção é aplicar a mesma regra de negação do P4.
 - **Limites de tamanho nem sempre respeitados:** uma resposta do E1 teve 46 palavras (meta: ~45). É preciso validar e reformular em código.
 - **Voz não testada aqui:** a conversão fala ↔ texto fica no front (Web Speech API).
 - **Sem teste com usuários reais** do público-alvo até o momento.
