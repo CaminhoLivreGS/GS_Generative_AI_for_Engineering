@@ -194,6 +194,7 @@ Para testar sem gastar cota: `LLM_MOCK=1` faz o cliente devolver respostas simul
 - **Modelos gratuitos:** 50 chamadas/dia, 429 frequente, modelos saem do catálogo sem aviso (Qwen e Gemma, neste trabalho). Explicar a rota levou ~20 s. Produção exige modelo pago com SLA ou geração antecipada.
 - **Falso alarme no verificador do P3:** para o perfil `mobilidade_reduzida`, a checagem automática deu fidelidade 4/5 porque a resposta diz *"A rota não é garantida como totalmente segura"*. A frase está correta, mas o verificador do P3 procura a palavra "garantid" sem considerar a negação, ao contrário do verificador do P4. A correção é aplicar a mesma regra de negação do P4.
 - **Limites de tamanho nem sempre respeitados:** uma resposta do E1 teve 46 palavras (meta: ~45). É preciso validar e reformular em código.
+- **Aviso `NotOpenSSLWarning` na célula de configuração:** o notebook foi executado no Python 3.9 que vem com o macOS, compilado com LibreSSL 2.8.3. O `urllib3` 2 (usado pelo `requests`) espera OpenSSL 1.1.1 ou mais novo e por isso emite um aviso ao ser importado. É só um aviso: todas as chamadas HTTPS funcionaram. O ideal é usar Python 3.11 ou mais novo (Homebrew ou python.org), que já vem com OpenSSL atualizado.
 - **Voz não testada aqui:** a conversão fala ↔ texto fica no front (Web Speech API).
 - **Sem teste com usuários reais** do público-alvo até o momento.
 
