@@ -1,0 +1,328 @@
+{
+  "data_execucao": "2026-11-14 22:49",
+  "modelo_principal": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "fallback": [
+    "inclusionai/ling-3.2-flash:free",
+    "cohere/north-mini-code:free",
+    "google/gemma-4-31b-it:free"
+  ],
+  "log_chamadas": [
+    {
+      "tarefa": "prompt_original",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 3.89,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P1_apresentacao",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 4.99,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino_v1",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 1.42,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 5.39,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P3_rota_v1",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 20.47,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P3_rota_idoso+mobilidade_reduzida",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 23.82,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P3_rota_mobilidade_reduzida",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 22.52,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "ajuda",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 5.82,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "ajuda",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 4.72,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "ajuda",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 4.5,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "ajuda",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 4.29,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "ajuda",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 10.57,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "ajuda",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 3.16,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "ajuda",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 2.5,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 5.39,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 2.88,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 44.78,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 4.68,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "E3a_fallback",
+      "modelo": "caminho-livre/modelo-que-nao-existe:free",
+      "status": "http_400",
+      "latencia_s": 0.13,
+      "detalhe": "caminho-livre/modelo-que-nao-existe:free is not a valid model ID"
+    },
+    {
+      "tarefa": "E3a_fallback",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 1.49,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "E3b_timeout",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "timeout",
+      "latencia_s": null,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "E4_chamado",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 6.96,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "E5_visao",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 1.87,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "status": "cache",
+      "latencia_s": 5.39,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "inclusionai/ling-3.2-flash:free",
+      "status": "cache",
+      "latencia_s": 14.38,
+      "detalhe": ""
+    },
+    {
+      "tarefa": "P2_destino",
+      "modelo": "cohere/north-mini-code:free",
+      "status": "cache",
+      "latencia_s": 13.74,
+      "detalhe": ""
+    }
+  ],
+  "E1_ajuda": [
+    {
+      "pergunta": "Como eu faço pra falar pra onde eu quero ir?",
+      "resposta": "Toque no botão do microfone e diga o destino. O app confirma o lugar. Toque no verde para aceitar ou no vermelho para repetir. Também pode digitar.",
+      "secoes": [
+        "Como pedir uma rota por voz",
+        "Erros comuns e como resolver"
+      ],
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "latencia_s": 4.5,
+      "cache": true
+    },
+    {
+      "pergunta": "Por que ele me mandou por um caminho mais comprido?",
+      "resposta": "O app pode escolher um caminho um pouco mais longo para evitar escadas, ladeiras, buracos, obras ou alagamentos confirmados. Ele sempre avisa o motivo, por exemplo: \"Vou evitar a rua Y porque tem um buraco na calçada\". Se não houver informação confirmada, o app também avisa.",
+      "secoes": [
+        "O que é o Caminho Livre",
+        "Por que o app escolheu um caminho mais longo",
+        "Durante o trajeto"
+      ],
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "latencia_s": 4.29,
+      "cache": true
+    },
+    {
+      "pergunta": "Eu tirei foto de um buraco ontem. E agora, o que acontece?",
+      "resposta": "A foto passa por verificação automática. Se confirmado por outras pessoas, o trecho é evitado nas rotas. A prefeitura é avisada depois de revisão.",
+      "secoes": [
+        "O que acontece depois do relato",
+        "Como relatar um problema na calçada",
+        "Por que o app escolheu um caminho mais longo"
+      ],
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "latencia_s": 10.57,
+      "cache": true
+    },
+    {
+      "pergunta": "O microfone não funciona, o que eu faço?",
+      "resposta": "Verifique se permitiu o microfone no navegador. Se preferir, digite o destino.",
+      "secoes": [
+        "Erros comuns e como resolver",
+        "O que é o Caminho Livre",
+        "Como pedir uma rota por voz"
+      ],
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "latencia_s": 3.16,
+      "cache": true
+    },
+    {
+      "pergunta": "Qual vai ser a previsão do tempo amanhã?",
+      "resposta": "Não sei responder isso. Toque no botão de ajuda para falar com a equipe.",
+      "secoes": [
+        "Quanto tempo um relato fica valendo"
+      ],
+      "modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "latencia_s": 2.5,
+      "cache": true
+    }
+  ],
+  "E2_destinos": [
+    {
+      "fala": "quero ir no posto de saúde da vila yara, ando de bengala",
+      "tipo_local": "ubs",
+      "nome_local": "UBS Vila Yara",
+      "bairro": "Vila Yara",
+      "perfis_mencionados": [
+        "mobilidade_reduzida"
+      ],
+      "emergencia": false,
+      "precisa_confirmar": true,
+      "fala_confirmacao": "Encontrei a UBS Vila Yara. Quer que eu trace a rota?",
+      "_modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "_latencia_s": 5.39
+    },
+    {
+      "fala": "me leva na escola do meu neto",
+      "tipo_local": "escola",
+      "nome_local": null,
+      "bairro": null,
+      "perfis_mencionados": [],
+      "emergencia": false,
+      "precisa_confirmar": true,
+      "fala_confirmacao": "Qual o nome da escola do seu neto?",
+      "_modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "_latencia_s": 2.88
+    },
+    {
+      "fala": "caí aqui na calçada e machuquei o joelho, quero ir pra casa",
+      "tipo_local": "casa",
+      "nome_local": null,
+      "bairro": null,
+      "perfis_mencionados": [],
+      "emergencia": true,
+      "precisa_confirmar": true,
+      "fala_confirmacao": "Ligue 192 imediatamente. Depois a gente vê como você vai para casa.",
+      "_modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "_latencia_s": 44.78
+    },
+    {
+      "fala": "tô de cadeira de rodas, qual a estação de trem mais perto?",
+      "tipo_local": "estacao",
+      "nome_local": null,
+      "bairro": null,
+      "perfis_mencionados": [
+        "mobilidade_reduzida"
+      ],
+      "emergencia": false,
+      "precisa_confirmar": true,
+      "fala_confirmacao": "Achei estações de trem. Qual seu bairro?",
+      "_modelo": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "_latencia_s": 4.68
+    }
+  ],
+  "E6_comparativo": {
+    "modelo": [
+      "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "inclusionai/ling-3.2-flash:free",
+      "cohere/north-mini-code:free"
+    ],
+    "qualidade": [
+      "JSON válido e correto",
+      "JSON válido e correto",
+      "JSON válido e correto"
+    ],
+    "latencia_percebida": [
+      "5.39 s",
+      "14.38 s",
+      "13.74 s"
+    ],
+    "limites_observados": [
+      "nenhum no teste",
+      "nenhum no teste",
+      "nenhum no teste"
+    ]
+  }
+}

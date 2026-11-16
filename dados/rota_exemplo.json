@@ -1,0 +1,23 @@
+{
+  "_aviso": "DADO SIMULADO para o MVP. Formato proposto para a resposta de GET /rotas?origem&destino&perfil, a ser alinhado com Big Data (pipeline do grafo). Ruas e distâncias fictícias.",
+  "origem": {"nome": "Casa da usuária", "lat": -23.5321, "lon": -46.7802},
+  "destino": {"nome": "UBS Vila Yara", "lat": -23.5375, "lon": -46.7751},
+  "perfil": ["mobilidade_reduzida", "idoso"],
+  "distancia_m": 850,
+  "duracao_min": 14,
+  "rota_comum_distancia_m": 700,
+  "trechos": [
+    {"ordem": 1, "instrucao": "seguir", "rua": "Rua das Acácias", "distancia_m": 200, "superficie": "boa", "inclinacao_pct": 1, "iluminacao": true},
+    {"ordem": 2, "instrucao": "atravessar", "rua": "Avenida Central", "distancia_m": 20, "travessia": {"semaforo": true, "sonoro": false, "guia_rebaixada": true}},
+    {"ordem": 3, "instrucao": "virar_direita", "rua": "Rua São Bento", "distancia_m": 380, "superficie": "boa", "inclinacao_pct": 2, "iluminacao": true, "ponto_descanso": "banco na praça"},
+    {"ordem": 4, "instrucao": "virar_esquerda", "rua": "Rua dos Ipês", "distancia_m": 250, "superficie": "sem_dado", "inclinacao_pct": 3, "iluminacao": true}
+  ],
+  "desvios": [
+    {"rua": "Rua Y (Travessa Morumbi)", "motivo": "buraco", "status_relato": "confirmado", "confirmacoes": 4},
+    {"rua": "Escadaria da Rua Alta", "motivo": "escada", "status_relato": "dado_osm", "confirmacoes": null}
+  ],
+  "alertas_no_caminho": [
+    {"rua": "Rua São Bento", "tipo": "calcada_irregular", "status_relato": "em_verificacao", "lado_seguro": "direita"}
+  ],
+  "trechos_sem_dado": ["Rua dos Ipês"]
+}

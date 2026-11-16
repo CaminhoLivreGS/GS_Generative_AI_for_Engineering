@@ -1,0 +1,8 @@
+# Ambiente testado com Python 3.9 (macOS). Também compatível com Python 3.10+.
+requests==2.32.5
+python-dotenv==1.2.1
+ipykernel==6.31.0
+# Opcionais: executar o notebook pela linha de comando e exportar o HTML de evidência
+nbclient==0.10.2
+nbformat==5.10.4
+nbconvert==7.17.2
