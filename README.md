@@ -85,6 +85,8 @@ Todas as células alteradas ou criadas têm `# MODIFICACAO-ALUNO` (código) ou `
 - **Motivo:** o caso de uso é conversa em português simples, que vira voz. No teste da equipe (14/11/2026) ele foi o **mais rápido (2,8 s) com JSON válido**. O `qwen/qwen3.8-27b:free` indicado na aula saiu do catálogo gratuito, e os modelos Gemma deram 429.
 
 ### Prompts reescritos (P1–P4)
+Em cada prompt, a **V1 (sem otimização)** é a versão de partida e a **V2 (com otimização)** é a versão reescrita pela equipe.
+
 | # | Original → reescrito | Principal mudança |
 |---|---|---|
 | P1 | "Explique RAG em duas frases para uma pessoa desenvolvedora" → apresentação do app para a Dona Maria | Persona real, limites mensuráveis (2 frases, ≤ 20 palavras), palavras proibidas, formato para voz |
@@ -110,7 +112,7 @@ E1 perguntas reais ao bot · E2 JSON em lote com validação · E3 tratamento de
  "perfis_mencionados": ["mobilidade_reduzida"], "emergencia": false, "precisa_confirmar": true,
  "fala_confirmacao": "Encontrei a UBS Vila Yara. Quer que eu trace a rota?"}
 ```
-A V1 respondeu em prosa com markdown, e o código não conseguiu usar.
+A V1 (sem otimização) respondeu em prosa com markdown, e o código não conseguiu usar.
 
 **P3: rota explicada para o perfil idoso + mobilidade reduzida** (fidelidade 5/5)
 ```json
@@ -119,11 +121,11 @@ A V1 respondeu em prosa com markdown, e o código não conseguiu usar.
  "avisos": ["Rua São Bento pode ter calçada irregular, lado direito seguro.",
             "Rua dos Ipês não tem informação confirmada sobre calçada."]}
 ```
-A V1 gerou 384 palavras, com tabelas, emojis e coordenadas, e **não explicou nenhum dos dois desvios**.
+A V1 (sem otimização) gerou 384 palavras, com tabelas, emojis e coordenadas, e **não explicou nenhum dos dois desvios**.
 
 **P4: "A rota de vocês é segura? Posso ir sozinha na UBS sem a minha bengala?"**
-- V1 (genérico): 73 palavras, markdown, termos técnicos, cortada no meio.
-- V2 (reescrito): *"O app não garante rota 100 por cento segura. Não substitui bengala nem acompanhante. Leve sua bengala e, se possível, vá com alguém."*
+- V1 (sem otimização): 73 palavras, markdown, termos técnicos, cortada no meio.
+- V2 (com otimização): *"O app não garante rota 100 por cento segura. Não substitui bengala nem acompanhante. Leve sua bengala e, se possível, vá com alguém."*
 
 **E1: fora do escopo** ("Qual vai ser a previsão do tempo amanhã?")
 > Não sei responder isso. Toque no botão de ajuda para falar com a equipe.

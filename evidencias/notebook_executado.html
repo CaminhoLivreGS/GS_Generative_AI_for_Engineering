@@ -8572,8 +8572,8 @@ Checagem:
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-2-reescrito:-entender-o-destino-falado-%E2%86%92-JSON">Modificação do aluno — Prompt 2 reescrito: entender o destino falado → JSON<a class="anchor-link" href="#Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-2-reescrito:-entender-o-destino-falado-%E2%86%92-JSON">¶</a></h2><p>A busca de destino é por voz ("Quero ir na UBS da Vila X"). A API precisa de dados estruturados, não de prosa.</p>
-<p><strong>Versão 1 (ingênua):</strong> <code>Para onde a pessoa quer ir? Frase: "..."</code>. Responde em texto livre, cada vez num formato diferente, e o código não consegue usar.</p>
-<p><strong>Versão 2 (reescrita), com as mudanças:</strong></p>
+<p><strong>Versão 1 (sem otimização):</strong> <code>Para onde a pessoa quer ir? Frase: "..."</code>. Responde em texto livre, cada vez num formato diferente, e o código não consegue usar.</p>
+<p><strong>Versão 2 (com otimização), com as mudanças:</strong></p>
 <ol>
 <li><strong>Esquema JSON explícito</strong> com campos e <strong>valores permitidos</strong> (enums). O backend valida campo a campo.</li>
 <li><strong>Regra anti-alucinação:</strong> se a pessoa não disse o nome ou o bairro, o campo é <code>null</code>. O modelo nunca inventa.</li>
@@ -8690,7 +8690,7 @@ Checagem:
 
 <span class="n">fala_teste</span> <span class="o">=</span> <span class="s1">'quero ir no posto de saúde da vila yara, ando de bengala'</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'=== V1 (ingênua) ==='</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'=== V1 (sem otimização) ==='</span><span class="p">)</span>
 <span class="n">r_v1</span> <span class="o">=</span> <span class="n">chamar_llm</span><span class="p">([{</span><span class="s1">'role'</span><span class="p">:</span> <span class="s1">'user'</span><span class="p">,</span> <span class="s1">'content'</span><span class="p">:</span> <span class="n">PROMPT_DESTINO_V1</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fala</span><span class="o">=</span><span class="n">fala_teste</span><span class="p">)}],</span> <span class="n">tarefa</span><span class="o">=</span><span class="s1">'P2_destino_v1'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">(</span><span class="n">r_v1</span><span class="p">));</span> <span class="nb">print</span><span class="p">(</span><span class="n">r_v1</span><span class="p">[</span><span class="s1">'texto'</span><span class="p">])</span>
 <span class="k">try</span><span class="p">:</span>
@@ -8698,7 +8698,7 @@ Checagem:
 <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">'-&gt; o código consegue usar? NÃO:'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">=== V2 (reescrita) ==='</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">=== V2 (com otimização) ==='</span><span class="p">)</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">interpretar_destino</span><span class="p">(</span><span class="n">fala_teste</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'-&gt; erros de validação:'</span><span class="p">,</span> <span class="n">validar_destino</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'_'</span><span class="p">)})</span> <span class="ow">or</span> <span class="s1">'nenhum'</span><span class="p">)</span>
@@ -8714,14 +8714,14 @@ Checagem:
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>=== V1 (ingênua) ===
+<pre>=== V1 (sem otimização) ===
 [nvidia/nemotron-3-ultra-550b-a55b:free | 1.42 s | cache]
 A pessoa quer ir ao **posto de saúde da Vila Yara**.
 
 (O trecho "ando de bengala" indica uma necessidade de mobilidade/acessibilidade, mas não altera o destino).
 -&gt; o código consegue usar? NÃO: nenhum JSON encontrado na resposta
 
-=== V2 (reescrita) ===
+=== V2 (com otimização) ===
 {
   "tipo_local": "ubs",
   "nome_local": "UBS Vila Yara",
@@ -8749,8 +8749,8 @@ A pessoa quer ir ao **posto de saúde da Vila Yara**.
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-3-reescrito:-explicar-a-rota-por-voz,-por-perfil">Modificação do aluno — Prompt 3 reescrito: explicar a rota por voz, por perfil<a class="anchor-link" href="#Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-3-reescrito:-explicar-a-rota-por-voz,-por-perfil">¶</a></h2><p>A rota vem da API (<code>GET /rotas</code>) como JSON técnico: trechos, inclinação, desvios, alertas. Aqui usamos <code>dados/rota_exemplo.json</code>, <strong>simulado</strong> no formato que vamos combinar com a disciplina de Big Data.</p>
-<p><strong>Versão 1:</strong> <code>Explique esta rota: {json}</code>. Gera um texto longo, com números técnicos ("inclinacao_pct: 3"), sem foco no perfil e sem garantia de que diz <em>por que</em> desviou.</p>
-<p><strong>Versão 2 (reescrita), com as mudanças:</strong></p>
+<p><strong>Versão 1 (sem otimização):</strong> <code>Explique esta rota: {json}</code>. Gera um texto longo, com números técnicos ("inclinacao_pct: 3"), sem foco no perfil e sem garantia de que diz <em>por que</em> desviou.</p>
+<p><strong>Versão 2 (com otimização), com as mudanças:</strong></p>
 <ol>
 <li><strong>Estilo por perfil</strong> (tabela do documento do projeto): idoso tem frases mais curtas e pede confirmação antes de começar; mobilidade reduzida cita rampas, guias rebaixadas e subidas.</li>
 <li><strong>Transparência obrigatória</strong> (IA responsável): todo desvio precisa ser explicado com o motivo ("vou evitar a Rua Y porque tem um buraco confirmado").</li>
@@ -8821,12 +8821,12 @@ A pessoa quer ir ao **posto de saúde da Vila Yara**.
     <span class="n">checks</span><span class="p">[</span><span class="s1">'não promete 100</span><span class="si">% s</span><span class="s1">egura'</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'100 ?%|totalmente segur|garantid'</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">checks</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">'=== V1 (ingênua) ==='</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'=== V1 (sem otimização) ==='</span><span class="p">)</span>
 <span class="n">r_rota_v1</span> <span class="o">=</span> <span class="n">chamar_llm</span><span class="p">([{</span><span class="s1">'role'</span><span class="p">:</span> <span class="s1">'user'</span><span class="p">,</span> <span class="s1">'content'</span><span class="p">:</span> <span class="n">PROMPT_ROTA_V1</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rota</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">ROTA_API</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">))}],</span>
                        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span> <span class="n">tarefa</span><span class="o">=</span><span class="s1">'P3_rota_v1'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">(</span><span class="n">r_rota_v1</span><span class="p">));</span> <span class="nb">print</span><span class="p">(</span><span class="n">r_rota_v1</span><span class="p">[</span><span class="s1">'texto'</span><span class="p">][:</span><span class="mi">1500</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Palavras:'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">r_rota_v1</span><span class="p">[</span><span class="s1">'texto'</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'Fidelidade V1:'</span><span class="p">,</span> <span class="n">verificar_fidelidade</span><span class="p">({</span><span class="s1">'t'</span><span class="p">:</span> <span class="n">r_rota_v1</span><span class="p">[</span><span class="s1">'texto'</span><span class="p">]},</span> <span class="n">ROTA_API</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Fidelidade V1 (sem otimização):'</span><span class="p">,</span> <span class="n">verificar_fidelidade</span><span class="p">({</span><span class="s1">'t'</span><span class="p">:</span> <span class="n">r_rota_v1</span><span class="p">[</span><span class="s1">'texto'</span><span class="p">]},</span> <span class="n">ROTA_API</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -8839,7 +8839,7 @@ A pessoa quer ir ao **posto de saúde da Vila Yara**.
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>=== V1 (ingênua) ===
+<pre>=== V1 (sem otimização) ===
 [nvidia/nemotron-3-ultra-550b-a55b:free | 20.47 s | cache]
 Esta rota foi **otimizada para uma pessoa idosa com mobilidade reduzida**, priorizando segurança, conforto (superfície boa, pouca inclinação) e acessibilidade (travessias com guia rebaixada), em vez da menor distância absoluta.
 
@@ -8866,7 +8866,7 @@ Aqui está a explicação detalhada, traduzida do JSON para linguagem clara:
 | **4** | **Virar à ESQUERDA** | **Rua dos Ipês** | 250 m | ❓ **Superfície: *Sem dado*** (desconhecida) | ⚠️ **Inclinação moderada (3%)
 
 Palavras: 384
-Fidelidade V1: {'explica desvio: rua y': False, 'explica desvio: escadaria da rua alta': False, 'avisa sem dado: Rua dos Ipês': True, 'cita alerta: Rua São Bento': True, 'não promete 100% segura': True}
+Fidelidade V1 (sem otimização): {'explica desvio: rua y': False, 'explica desvio: escadaria da rua alta': False, 'avisa sem dado: Rua dos Ipês': True, 'cita alerta: Rua São Bento': True, 'não promete 100% segura': True}
 </pre>
 </div>
 </div>
@@ -8883,7 +8883,7 @@ Fidelidade V1: {'explica desvio: rua y': False, 'explica desvio: escadaria da ru
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># MODIFICACAO-ALUNO (P3): versão reescrita para dois perfis diferentes (mesma rota)</span>
 <span class="k">for</span> <span class="n">perfis</span> <span class="ow">in</span> <span class="p">([</span><span class="s1">'idoso'</span><span class="p">,</span> <span class="s1">'mobilidade_reduzida'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'mobilidade_reduzida'</span><span class="p">]):</span>
     <span class="n">saida</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">explicar_rota</span><span class="p">(</span><span class="n">ROTA_API</span><span class="p">,</span> <span class="n">perfis</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'=== V2 — perfil </span><span class="si">{</span><span class="n">perfis</span><span class="si">}</span><span class="s1"> ==='</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'=== V2 (com otimização) — perfil </span><span class="si">{</span><span class="n">perfis</span><span class="si">}</span><span class="s1"> ==='</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">saida</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
     <span class="n">checks</span> <span class="o">=</span> <span class="n">verificar_fidelidade</span><span class="p">(</span><span class="n">saida</span><span class="p">,</span> <span class="n">ROTA_API</span><span class="p">)</span>
@@ -8901,7 +8901,7 @@ Fidelidade V1: {'explica desvio: rua y': False, 'explica desvio: escadaria da ru
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>=== V2 — perfil ['idoso', 'mobilidade_reduzida'] ===
+<pre>=== V2 (com otimização) — perfil ['idoso', 'mobilidade_reduzida'] ===
 [nvidia/nemotron-3-ultra-550b-a55b:free | 23.82 s | cache]
 {
   "resumo_voz": "Quer iniciar a caminhada agora? São 850 metros, cerca de 14 minutos. Há banco na praça na Rua São Bento. Rampas e guias rebaixadas estão presentes. Escadas foram evitadas no percurso.",
@@ -8923,7 +8923,7 @@ Fidelidade V1: {'explica desvio: rua y': False, 'explica desvio: escadaria da ru
 Fidelidade: 5/5 {'explica desvio: rua y': True, 'explica desvio: escadaria da rua alta': True, 'avisa sem dado: Rua dos Ipês': True, 'cita alerta: Rua São Bento': True, 'não promete 100% segura': True}
 Palavras no resumo_voz: 31 
 
-=== V2 — perfil ['mobilidade_reduzida'] ===
+=== V2 (com otimização) — perfil ['mobilidade_reduzida'] ===
 [nvidia/nemotron-3-ultra-550b-a55b:free | 22.52 s | cache]
 {
   "resumo_voz": "A caminhada até a UBS Vila Yara tem 850 metros e leva cerca de 14 minutos. A rota evita uma escada na Escadaria da Rua Alta e um buraco na Rua Y. Há um trecho sem informação de calçada na Rua dos Ipês e a calçada da Rua São Bento pode ter irregularidades do lado esquerdo.",
@@ -8958,9 +8958,9 @@ Palavras no resumo_voz: 56
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-4-reescrito:-system-prompt-do-bot-de-ajuda">Modificação do aluno — Prompt 4 reescrito: system prompt do bot de ajuda<a class="anchor-link" href="#Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-4-reescrito:-system-prompt-do-bot-de-ajuda">¶</a></h2><p><strong>Versão 1:</strong> <code>Você é um assistente útil do app Caminho Livre. Responda às perguntas do usuário.</code></p>
+<h2 id="Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-4-reescrito:-system-prompt-do-bot-de-ajuda">Modificação do aluno — Prompt 4 reescrito: system prompt do bot de ajuda<a class="anchor-link" href="#Modifica%C3%A7%C3%A3o-do-aluno-%E2%80%94-Prompt-4-reescrito:-system-prompt-do-bot-de-ajuda">¶</a></h2><p><strong>Versão 1 (sem otimização):</strong> <code>Você é um assistente útil do app Caminho Livre. Responda às perguntas do usuário.</code></p>
 <p>Esse é o system prompt "padrão" da maioria dos tutoriais. No nosso caso ele é <strong>perigoso</strong>: sem contexto, o modelo <strong>inventa</strong> telas e botões, e pode <strong>prometer segurança</strong> a uma pessoa com deficiência.</p>
-<p><strong>Versão 2 (reescrita), com as mudanças:</strong></p>
+<p><strong>Versão 2 (com otimização), com as mudanças:</strong></p>
 <ol>
 <li><strong>Ancoragem (grounding):</strong> responde <strong>somente</strong> com o CONTEXTO recuperado da base (M4), com uma frase de recusa padrão quando não souber.</li>
 <li><strong>Regras de segurança:</strong> nunca prometer rota 100% segura; lembrar que o app não substitui bengala ou acompanhante; em emergência, orientar a ligar 192/193 primeiro.</li>
@@ -8979,7 +8979,7 @@ Palavras no resumo_voz: 56
 <div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># MODIFICACAO-ALUNO (P4): system prompt do helper, V1 x V2</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># MODIFICACAO-ALUNO (P4): system prompt do helper, V1 (sem otimização) x V2 (com otimização)</span>
 <span class="n">SYSTEM_AJUDA_V1</span> <span class="o">=</span> <span class="s1">'Você é um assistente útil do app Caminho Livre. Responda às perguntas do usuário.'</span>
 
 <span class="n">SYSTEM_AJUDA_V2</span> <span class="o">=</span> <span class="s1">'''Você é a voz de ajuda do app Caminho Livre, que mostra rotas a pé mais seguras para idosos e pessoas com bengala, cadeira de rodas, baixa visão ou dificuldade de leitura.</span>
@@ -9013,7 +9013,7 @@ Palavras no resumo_voz: 56
             <span class="s1">'latencia_s'</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">'latencia_s'</span><span class="p">],</span> <span class="s1">'cache'</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'cache'</span><span class="p">)}</span>
 
 <span class="n">pergunta_sensivel</span> <span class="o">=</span> <span class="s1">'A rota de vocês é segura? Posso ir sozinha na UBS sem a minha bengala?'</span>
-<span class="k">for</span> <span class="n">nome</span><span class="p">,</span> <span class="n">sp</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">'V1'</span><span class="p">,</span> <span class="n">SYSTEM_AJUDA_V1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'V2'</span><span class="p">,</span> <span class="n">SYSTEM_AJUDA_V2</span><span class="p">)]:</span>
+<span class="k">for</span> <span class="n">nome</span><span class="p">,</span> <span class="n">sp</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">'V1 (sem otimização)'</span><span class="p">,</span> <span class="n">SYSTEM_AJUDA_V1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'V2 (com otimização)'</span><span class="p">,</span> <span class="n">SYSTEM_AJUDA_V2</span><span class="p">)]:</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">responder_ajuda</span><span class="p">(</span><span class="n">pergunta_sensivel</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="n">sp</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'=== </span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s1"> === [</span><span class="si">{</span><span class="n">out</span><span class="p">[</span><span class="s2">"modelo"</span><span class="p">]</span><span class="si">}</span><span class="s1"> | </span><span class="si">{</span><span class="n">out</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"latencia_s"</span><span class="p">)</span><span class="si">}</span><span class="s1"> s]'</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s1">'resposta'</span><span class="p">])</span>
@@ -9037,13 +9037,13 @@ Palavras no resumo_voz: 56
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>=== V1 === [nvidia/nemotron-3-ultra-550b-a55b:free | 5.82 s]
+<pre>=== V1 (sem otimização) === [nvidia/nemotron-3-ultra-550b-a55b:free | 5.82 s]
 **Não posso garantir que a rota é 100% segura para você ir sozinha sem a bengala**, pois não tenho acesso em tempo real às condições do percurso (buracos, obras, obstáculos, trânsito, iluminação) nem ao seu nível de familiaridade com o trajeto.
 
 A bengala (ou cão-guia) é a sua principal ferramenta de **detecção de obstáculos, mudanças de nível (meio-fio, degraus) e orientação**. Ir sem ela aumenta significativamente o risco de quedas, colisões e desorientação
 -&gt; promete segurança total? False | lembra da bengala/acompanhante? True | usa markdown (ruim para voz)? True | palavras: 73 (meta &lt;= 45)
 
-=== V2 === [nvidia/nemotron-3-ultra-550b-a55b:free | 4.72 s]
+=== V2 (com otimização) === [nvidia/nemotron-3-ultra-550b-a55b:free | 4.72 s]
 O app não garante rota 100 por cento segura. Não substitui bengala nem acompanhante. Leve sua bengala e, se possível, vá com alguém.
 -&gt; promete segurança total? False | lembra da bengala/acompanhante? True | usa markdown (ruim para voz)? False | palavras: 23 (meta &lt;= 45)
 
@@ -9687,7 +9687,7 @@ Arquivo salvo: evidencias/resultados_execucao.json
 <ul>
 <li><strong>Prompt com regra mensurável vence prompt vago.</strong> Limites de frases e palavras, enums e "use null" puderam ser checados em código (P1, P2, P3).</li>
 <li><strong>Validar e reparar</strong> é obrigatório quando a saída alimenta código. Mesmo bons modelos às vezes devolvem JSON com ```json ou texto extra (E3c).</li>
-<li><strong>O system prompt genérico não serve para o público.</strong> Na P4, a V1 até recusou garantir segurança, mas usou 73 palavras, markdown (<code>**</code>) e termos como "detecção de obstáculos": impossível de ouvir com calma. A V2 disse o essencial em 23 palavras, pronta para voz.</li>
+<li><strong>O system prompt genérico não serve para o público.</strong> Na P4, a V1 (sem otimização) até recusou garantir segurança, mas usou 73 palavras, markdown (<code>**</code>) e termos como "detecção de obstáculos": impossível de ouvir com calma. A V2 disse o essencial em 23 palavras, pronta para voz.</li>
 <li><strong>Grounding + recusa padrão funcionam.</strong> Na pergunta da previsão do tempo, a busca trouxe uma seção irrelevante ("Quanto tempo um relato..."), e mesmo assim o modelo respondeu "Não sei responder isso" em vez de inventar (E1).</li>
 <li><strong>O modelo nem sempre respeita os limites de tamanho.</strong> No E1, uma resposta teve 46 palavras (meta: 3 frases de até 15). Em produção, vale cortar ou pedir reformulação quando o limite for ultrapassado.</li>
 <li><strong>Latência:</strong> explicar a rota levou ~20 s no modelo gratuito. No app, a explicação deve ser gerada <strong>junto com o cálculo da rota</strong>, antes de a pessoa sair, e não no meio do caminho.</li>
